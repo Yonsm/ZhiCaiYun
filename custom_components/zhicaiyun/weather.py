@@ -1,5 +1,3 @@
-import asyncio
-import json
 import logging
 import random
 import time
@@ -157,13 +155,13 @@ class CaiYunWeather(WeatherEntity):
                 (self._longitude, self._latitude, int(time.time()), DEVIEC_ID)
             _LOGGER.info('getWeatherData: %s', url)
             session = self._hass.helpers.aiohttp_client.async_get_clientsession()
-            async with session.get(url, headers=headers) as response:
-                json = await response.json()
-            #_LOGGER.info('gotWeatherData: %s', json)
-            result = json['result']
+            r = await session.get(url, headers=headers)
+            resp = await r.json()
+            #_LOGGER.info('gotWeatherData: %s', resp)
+            result = resp['result']
             realtime = result['realtime']
             if realtime['status'] != 'ok':
-                raise
+                raise Exception(resp)
 
             # https://open.caiyunapp.com/%E5%AE%9E%E5%86%B5%E5%A4%A9%E6%B0%94%E6%8E%A5%E5%8F%A3/v2.2
             skycon = realtime['skycon']
