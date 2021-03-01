@@ -155,8 +155,8 @@ class CaiYunWeather(WeatherEntity):
                 (self._longitude, self._latitude, int(time.time()), DEVIEC_ID)
             _LOGGER.info('getWeatherData: %s', url)
             session = self._hass.helpers.aiohttp_client.async_get_clientsession()
-            r = await session.get(url, headers=headers)
-            resp = await r.json()
+            async with session.get(url, headers=headers) as r:
+                resp = await r.json()
             #_LOGGER.info('gotWeatherData: %s', resp)
             result = resp['result']
             realtime = result['realtime']
