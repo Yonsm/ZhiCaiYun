@@ -1,0 +1,8 @@
+{
+	"domain": "zhicaiyun",
+	"name": "Zhi CaiYun Weather",
+	"documentation": "https://github.com/Yonsm/ZhiCaiYun",
+	"requirements": [],
+	"dependencies": [],
+	"codeowners": ["@Yonsm"]
+}
