@@ -1,4 +1,4 @@
-# ZhiCaiYun
+# [https://github.com/Yonsm/ZhiCaiYun](https://github.com/Yonsm/ZhiCaiYun)
 
 CaiYun Weather Component for HomeAssistant
 
@@ -10,7 +10,7 @@ CaiYun Weather Component for HomeAssistant
 
 ## 2. 配置方法
 
-参见[我的 Home Assistant 配置](https://github.com/Yonsm/.homeassistant)中 [configuration.yaml](https://github.com/Yonsm/.homeassistant/blob/main/configuration.yaml)
+参见 [我的 Home Assistant 配置](https://github.com/Yonsm/.homeassistant) 中 [configuration.yaml](https://github.com/Yonsm/.homeassistant/blob/main/configuration.yaml)
 
 ```
 weather:
@@ -18,7 +18,7 @@ weather:
     name: 天气
 ```
 
-![PREVIEW](PREVIEW.png)
+![PREVIEW](https://github.com/Yonsm/ZhiCaiYun/blob/main/PREVIEW.png)
 
 其中的 `attribution` 属性是彩云天气特有的关键天气描述，一句话非常明了。另外 [ZhiDash](https://github.com/Yonsm/ZhiDash) 也可以配合支持这个天气插件。
 

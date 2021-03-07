@@ -2,6 +2,7 @@
 	"domain": "zhicaiyun",
 	"name": "Zhi CaiYun Weather",
 	"documentation": "https://github.com/Yonsm/ZhiCaiYun",
+	"version": "1.0.1",
 	"requirements": [],
 	"dependencies": [],
 	"codeowners": ["@Yonsm"]
