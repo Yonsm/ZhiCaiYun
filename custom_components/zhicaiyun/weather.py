@@ -73,10 +73,6 @@ class CaiYunWeather(WeatherEntity):
         return self._name
 
     @property
-    def icon(self):
-        return self._data.get('dash_icon')
-
-    @property
     def condition(self):
         """Return the current condition."""
         return self._data.get('condition')
@@ -166,7 +162,6 @@ class CaiYunWeather(WeatherEntity):
             # https://open.caiyunapp.com/%E5%AE%9E%E5%86%B5%E5%A4%A9%E6%B0%94%E6%8E%A5%E5%8F%A3/v2.2
             skycon = realtime['skycon']
             data['condition'] = WEATHER_ICONS[skycon] if skycon in WEATHER_ICONS else 'exceptional'
-            #data['dash_icon'] = 'mdi:weather-' + data['condition']
 
             data['temperature'] = round(realtime['temperature'])
             data['humidity'] = int(realtime['humidity'] * 100)
