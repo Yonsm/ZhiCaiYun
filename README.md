@@ -12,7 +12,7 @@ CaiYun Weather Component for HomeAssistant
 
 参见 [我的 Home Assistant 配置](https://github.com/Yonsm/.homeassistant) 中 [configuration.yaml](https://github.com/Yonsm/.homeassistant/blob/main/configuration.yaml)
 
-```
+```yaml
 weather:
   - platform: zhicaiyun
     name: 天气
@@ -24,7 +24,7 @@ weather:
 
 ## 3. 参考
 
--   [ZhiDash](https://github.com/Yonsm/ZhiDash)
--   [Yonsm.NET](https://yonsm.github.io/caiyun)
--   [Hassbian.com](https://bbs.hassbian.com/thread-2697-1-1.html)
--   [Yonsm's .homeassistant](https://github.com/Yonsm/.homeassistant)
+- [ZhiDash](https://github.com/Yonsm/ZhiDash)
+- [Yonsm.NET](https://yonsm.github.io/caiyun)
+- [Hassbian.com](https://bbs.hassbian.com/thread-2697-1-1.html)
+- [Yonsm's .homeassistant](https://github.com/Yonsm/.homeassistant)
