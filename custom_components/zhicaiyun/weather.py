@@ -55,10 +55,10 @@ async def async_setup_platform(hass, config, async_add_devices,
     name = config.get(CONF_NAME)
     longitude = str(config.get(CONF_LONGITUDE, hass.config.longitude))
     latitude = str(config.get(CONF_LATITUDE, hass.config.latitude))
-    async_add_devices([CaiYunWeather(name, hass, longitude, latitude)], True)
+    async_add_devices([ZhiCaiYunWeather(name, hass, longitude, latitude)], True)
 
 
-class CaiYunWeather(WeatherEntity):
+class ZhiCaiYunWeather(WeatherEntity):
 
     def __init__(self, name, hass, longitude, latitude):
         self._name = name
@@ -66,6 +66,10 @@ class CaiYunWeather(WeatherEntity):
         self._longitude = longitude
         self._latitude = latitude
         self._data = {}
+
+    @property
+    def unique_id(self):
+        return self.__class__.__name__.lower()
 
     @property
     def name(self):
