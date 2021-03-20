@@ -153,7 +153,7 @@ class ZhiCaiYunWeather(WeatherEntity):
                 "weather?lang=zh_CN&tzshift=28800&timestamp=%d" \
                 "&hourlysteps=384&dailysteps=16&alert=true&device_id=%s" % \
                 (self._longitude, self._latitude, int(time.time()), DEVIEC_ID)
-            _LOGGER.info('getWeatherData: %s', url)
+            _LOGGER.debug('getWeatherData: %s', url)
             session = self._hass.helpers.aiohttp_client.async_get_clientsession()
             async with session.get(url, headers=headers) as r:
                 resp = await r.json()
