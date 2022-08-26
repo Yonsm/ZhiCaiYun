@@ -81,17 +81,17 @@ class ZhiCaiYunWeather(WeatherEntity):
         return self._data.get('condition')
 
     @property
-    def temperature(self):
+    def native_temperature(self):
         """Return the platform temperature."""
         return self._data.get('temperature')
 
     @property
-    def temperature_unit(self):
+    def native_temperature_unit(self):
         """Return the unit of measurement."""
         return TEMP_CELSIUS
 
     @property
-    def pressure(self):
+    def native_pressure(self):
         """Return the pressure."""
         return self._data.get('pressure')
 
@@ -101,7 +101,7 @@ class ZhiCaiYunWeather(WeatherEntity):
         return self._data.get('humidity')
 
     @property
-    def wind_speed(self):
+    def native_wind_speed(self):
         """Return the wind speed."""
         return self._data.get('wind_speed')
 
@@ -121,7 +121,7 @@ class ZhiCaiYunWeather(WeatherEntity):
         return self._data['attribution']
 
     @property
-    def visibility(self):
+    def native_visibility(self):
         """Return the visibility."""
         return self._data.get('visibility')
 
@@ -152,7 +152,7 @@ class ZhiCaiYunWeather(WeatherEntity):
                 "weather?lang=zh_CN&tzshift=28800&timestamp=%d" \
                 "&hourlysteps=384&dailysteps=16&alert=true&device_id=%s" % \
                 (self._longitude, self._latitude, int(time.time()), DEVIEC_ID)
-            _LOGGER.debug('getWeatherData: %s', url)
+            #_LOGGER.debug(url)
             session = self._hass.helpers.aiohttp_client.async_get_clientsession()
             async with session.get(url, headers=headers) as r:
                 resp = await r.json()
