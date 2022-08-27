@@ -49,11 +49,11 @@ PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend({
 })
 
 
-async def async_setup_platform(hass, config, async_add_entities, discovery_info=None):
+async def async_setup_platform(hass, conf, async_add_entities, discovery_info=None):
     """Set up the Caiyun sensor."""
-    name = config.get(CONF_NAME)
-    longitude = str(config.get(CONF_LONGITUDE, hass.config.longitude))
-    latitude = str(config.get(CONF_LATITUDE, hass.config.latitude))
+    name = conf.get(CONF_NAME)
+    longitude = str(conf.get(CONF_LONGITUDE, hass.config.longitude))
+    latitude = str(conf.get(CONF_LATITUDE, hass.config.latitude))
     async_add_entities([ZhiCaiYunWeather(name, hass, longitude, latitude)], True)
 
 
