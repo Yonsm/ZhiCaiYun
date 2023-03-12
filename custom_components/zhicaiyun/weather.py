@@ -118,7 +118,7 @@ class ZhiCaiYunWeather(WeatherEntity):
     @property
     def attribution(self):
         """Return the attribution."""
-        return self._data['attribution']
+        return self._data.get('attribution')
 
     @property
     def native_visibility(self):
