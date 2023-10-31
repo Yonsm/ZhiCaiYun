@@ -7,14 +7,13 @@ from datetime import timedelta, datetime
 from homeassistant.components.weather import (
     ATTR_FORECAST_CONDITION, ATTR_FORECAST_PRECIPITATION, ATTR_FORECAST_TEMP,
     ATTR_FORECAST_TEMP_LOW, ATTR_FORECAST_TIME, ATTR_FORECAST_WIND_SPEED,
-    ATTR_FORECAST_WIND_BEARING,
-    PLATFORM_SCHEMA, WeatherEntity)
+    ATTR_FORECAST_WIND_BEARING, ATTR_FORECAST_HUMIDITY, 
+    PLATFORM_SCHEMA, WeatherEntity, Forecast, WeatherEntityFeature)
 from homeassistant.const import (
     CONF_NAME, CONF_LONGITUDE, CONF_LATITUDE, TEMP_CELSIUS,
     CONF_SCAN_INTERVAL, STATE_UNKNOWN)
 from homeassistant.helpers.event import async_track_time_interval
 import homeassistant.helpers.config_validation as cv
-#from homeassistant.util import Throttle
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -65,6 +64,7 @@ class ZhiCaiYunWeather(WeatherEntity):
         self._longitude = longitude
         self._latitude = latitude
         self._data = {}
+        self._attr_supported_features |= WeatherEntityFeature.FORECAST_DAILY
 
     @property
     def unique_id(self):
@@ -126,7 +126,7 @@ class ZhiCaiYunWeather(WeatherEntity):
         return self._data.get('visibility')
 
     @property
-    def forecast(self):
+    async def async_forecast_daily(self):
         return self._data.get('forecast')
 
     @property
@@ -191,6 +191,8 @@ class ZhiCaiYunWeather(WeatherEntity):
                     if key == 'temperature':
                         forecast[ATTR_FORECAST_TEMP] = v['avg']
                         forecast[ATTR_FORECAST_TEMP_LOW] = v['min']
+                    elif key == 'humidity':
+                        forecast[ATTR_FORECAST_HUMIDITY] = v['avg']
                     elif key == 'skycon':
                         skycon = v['value']
                         forecast[ATTR_FORECAST_CONDITION] = WEATHER_ICONS[skycon] if skycon in WEATHER_ICONS else 'exceptional'
