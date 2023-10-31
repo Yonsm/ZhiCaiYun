@@ -7,7 +7,7 @@ from datetime import timedelta, datetime
 from homeassistant.components.weather import (
     ATTR_FORECAST_CONDITION, ATTR_FORECAST_PRECIPITATION, ATTR_FORECAST_TEMP,
     ATTR_FORECAST_TEMP_LOW, ATTR_FORECAST_TIME, ATTR_FORECAST_WIND_SPEED,
-    ATTR_FORECAST_WIND_BEARING, ATTR_FORECAST_HUMIDITY, 
+    ATTR_FORECAST_WIND_BEARING, ATTR_FORECAST_HUMIDITY,
     PLATFORM_SCHEMA, WeatherEntity, Forecast, WeatherEntityFeature)
 from homeassistant.const import (
     CONF_NAME, CONF_LONGITUDE, CONF_LATITUDE, TEMP_CELSIUS,
@@ -64,7 +64,7 @@ class ZhiCaiYunWeather(WeatherEntity):
         self._longitude = longitude
         self._latitude = latitude
         self._data = {}
-        self._attr_supported_features |= WeatherEntityFeature.FORECAST_DAILY
+        self._attr_supported_features = WeatherEntityFeature.FORECAST_DAILY
 
     @property
     def unique_id(self):
@@ -125,7 +125,6 @@ class ZhiCaiYunWeather(WeatherEntity):
         """Return the visibility."""
         return self._data.get('visibility')
 
-    @property
     async def async_forecast_daily(self):
         return self._data.get('forecast')
 
@@ -152,11 +151,11 @@ class ZhiCaiYunWeather(WeatherEntity):
                 "weather?lang=zh_CN&tzshift=28800&timestamp=%d" \
                 "&hourlysteps=384&dailysteps=16&alert=true&device_id=%s" % \
                 (self._longitude, self._latitude, int(time.time()), DEVIEC_ID)
-            #_LOGGER.debug(url)
+            # _LOGGER.debug(url)
             session = self._hass.helpers.aiohttp_client.async_get_clientsession()
             async with session.get(url, headers=headers) as r:
                 resp = await r.json()
-            #_LOGGER.info('gotWeatherData: %s', resp)
+            # _LOGGER.info('gotWeatherData: %s', resp)
             result = resp['result']
             realtime = result['realtime']
             if realtime['status'] != 'ok':
