@@ -8,16 +8,14 @@ from homeassistant.components.weather import (
     ATTR_FORECAST_CONDITION, ATTR_FORECAST_PRECIPITATION, ATTR_FORECAST_TEMP,
     ATTR_FORECAST_TEMP_LOW, ATTR_FORECAST_TIME, ATTR_FORECAST_WIND_SPEED,
     ATTR_FORECAST_WIND_BEARING, ATTR_FORECAST_HUMIDITY,
-    PLATFORM_SCHEMA, WeatherEntity, Forecast, WeatherEntityFeature)
-from homeassistant.const import (
-    CONF_NAME, CONF_LONGITUDE, CONF_LATITUDE, TEMP_CELSIUS,
-    CONF_SCAN_INTERVAL, STATE_UNKNOWN)
-from homeassistant.helpers.event import async_track_time_interval
+    PLATFORM_SCHEMA, WeatherEntity, WeatherEntityFeature)
+from homeassistant.const import CONF_NAME, CONF_LONGITUDE, CONF_LATITUDE, UnitOfTemperature
+from homeassistant.helpers.aiohttp_client import async_get_clientsession
 import homeassistant.helpers.config_validation as cv
 
 _LOGGER = logging.getLogger(__name__)
 
-SCAN_INTERVAL = timedelta(minutes=1)
+SCAN_INTERVAL = timedelta(minutes=10)
 
 USER_AGENT = 'ColorfulCloudsPro/3.2.2 (iPhone; iOS 11.3; Scale/3.00)'
 DEVIEC_ID = '5F544F93-44F1-43C9-94B2-%012X' % random.randint(0, 0xffffffffffff)
@@ -88,7 +86,7 @@ class ZhiCaiYunWeather(WeatherEntity):
     @property
     def native_temperature_unit(self):
         """Return the unit of measurement."""
-        return TEMP_CELSIUS
+        return UnitOfTemperature.CELSIUS
 
     @property
     def native_pressure(self):
@@ -152,7 +150,7 @@ class ZhiCaiYunWeather(WeatherEntity):
                 "&hourlysteps=384&dailysteps=16&alert=true&device_id=%s" % \
                 (self._longitude, self._latitude, int(time.time()), DEVIEC_ID)
             # _LOGGER.debug(url)
-            session = self._hass.helpers.aiohttp_client.async_get_clientsession()
+            session = async_get_clientsession(self._hass)
             async with session.get(url, headers=headers) as r:
                 resp = await r.json()
             # _LOGGER.info('gotWeatherData: %s', resp)
